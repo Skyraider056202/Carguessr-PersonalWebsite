@@ -1,0 +1,49 @@
+<html>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid", id = 'navbar'>
+    <a  class="h-20 navbar-brand" href = '/', style="color: white",>Sean Alli's Website</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/specs", style="color: white">Carguessr</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/BAT", style="color: white">Guess the Price</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link", style="color: white", href="/about" >About the projects!</a>
+        </li>
+        <li class="nav-item", id="logtab">
+          {% block login_logout %}
+          {% if first_name %}
+          <a class="nav-link" style="color: white", href="#" id = 'greeting'> Hi, {{first_name}} </a>
+          <!-- make a profile page -->
+          </li>
+          <li id="logtab2">
+            <span>
+              <img id="profile-picture" src="/static/{{profilepic}}", height="50px", width="50px">
+              </span>
+          
+          <li class="nav-item", id="'logtab2">
+            <a class="nav-link", style="color: white", href="/logout" >Logout</a>
+          </li>
+          {%else %}
+          <a class="nav-link" style="color: white", href="/login" id = 'greeting'>Login! </a>
+          {% endif %}
+          {% endblock %}
+        </li>
+  
+      </ul>
+      
+    </div>
+  </div>
+  {% block main %}{% endblock %}
+
+  <link rel="stylesheet" href="/static/styles.css">
+</nav>
+</body>
+</html>

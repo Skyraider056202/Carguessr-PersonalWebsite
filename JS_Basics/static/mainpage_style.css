@@ -1,0 +1,201 @@
+body{
+  
+    
+    background-image: url('tech.gif');
+    background-repeat: no-repeat;
+    background-size: cover;}
+
+    
+    .slide-effect {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+   #personalinfo {
+    clip-path: circle(50% at 50% 50%);
+      position: relative;
+      font-family: tahoma;
+      font-size: 25px;
+      opacity:0;
+      animation: slideUp ease .4s forwards;
+      font-weight: bold;
+    }
+    
+  
+    
+    
+    @keyframes slideUp {
+      0% {transform: translateY(0);}
+      100% {transform: translateY(-50px);opacity:1;}
+    }
+    
+
+
+
+    
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+#personalinfo2{
+  color: white;
+  font-size: large;
+  
+  width: 150%;
+  height: 45%;
+  background-image: linear-gradient(#173F5F, #3CAEA3 );
+  font-family: 'Press Start 2P', cursive;
+  border-radius: 3px;
+  padding: 5px;
+  /* cut corners effect would be nice af */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+  animation: slideUp ease .4s forwards;}
+#picontainer{
+  width: 25%;
+  transform: translate(230%, 20%);
+
+  
+}
+.wrapper{
+  position: fixed;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.link_wrapper{
+  position: relative;
+}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap');
+#explore{
+  font-size: xx-large;
+  box-shadow: 10px 5px 5px springgreen;
+  translate: 0% 50%;
+  padding: 100px;
+  width: 500px;
+  height: 150px;
+  line-height: 50px;
+  font-weight: bold;
+  font-family: 'IBM Plex Mono', monospace;
+
+  
+  text-decoration: underline overline springgreen;
+  background: #333;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 3px solid #333;
+  transition: all .35s;
+  transform: translate(0, 100%);
+}
+
+.icon{
+  width: 50px;
+  height: 50px;
+  border: 3px solid transparent;
+  position: absolute;
+  transform: rotate(45deg);
+  right: 0;
+  top: 0;
+  z-index: -1;
+  transition: all .35s;
+}
+
+.icon svg{
+  width: 30px;
+  position: absolute;
+  top: calc(50% - 15px);
+  left: calc(50% - 15px);
+  transform: rotate(-45deg);
+  fill: #2ecc71;
+  transition: all .35s;
+}
+
+#explore:hover{
+  width: 200px;
+  border: 3px solid #2ecc71;
+  background: transparent;
+  color: #2ecc71;
+}
+
+#explore:hover + .icon{
+  border: 3px solid #2ecc71;
+  right: -25%;
+}
+#personalinfo{
+  /*explore! button that redirs to login, brief description of me, skills, future plans*/
+
+    position: absolute;
+    top: 30%;
+    left: 8%;
+    margin-top: -100px;
+    margin-left: -50px;
+    max-width: 50%;
+    height: 45%;
+
+    color: white;
+    white-space: initial;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom right, red, royalblue);
+    border-radius: 15px;
+    /*make button loads other text, make the behind the projects thing */
+box-shadow: black, 5px, 5px;
+  }
+
+#para{
+  max-width: 50%;
+  height: 50%;
+  top: 30%;
+  margin-top: 20px;
+  margin-left: 200px;
+
+}
+#container{
+
+  height: fit-content;
+  font-size: xx-large;
+  background-image: linear-gradient(#009FFD, #2A2A72);
+  width: fit-content;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid whitesmoke; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    padding-top: 100px;
+    padding-right: 100px;
+    padding-bottom: 100px;
+    padding-left: 100px;
+    margin: auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:  5px 10px;
+    animation: 
+      typing 2s steps(40, end),
+      blink-caret .75s step-end 5;
+  }
+  #Title{
+    background-color: #ffffff;
+  }
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0%}
+    to { width: 62%}
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: whitesmoke; }}
+
+/* profile page, , good button idk */
+#learnmore{
+margin-left: 100px;
+justify-content: center;
+}
+#loginreq{
+  margin-left: 250px;
+}
