@@ -1,12 +1,12 @@
-from flask import Flask, redirect, url_for, request, jsonify, render_template, make_response, flash, sessions, session
+from flask import Flask, redirect, url_for, request, jsonify, render_template, flash, session
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 from forms import registration_form, login_form
-import jsonpickle
+
 import json
-import sys
+
 import importlib
-import flask_migrate
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'a9d3b60f729f30d5ce93d0ce07429e2f'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///games.db'
@@ -43,10 +43,10 @@ def process_data():
     import pyt_back # have to re-import the script since it was imported locally
     importlib.reload(pyt_back)
     data = json.dumps(pyt_back.game_infrastructure.info_dict)
-    targetcar2 = json.dumps(pyt_back.game_infrastructure.target_car2)
+    targetcar = json.dumps(pyt_back.game_infrastructure.target_car)
   else:
     result = "Invalid request"
-  return jsonify({'data': data, 'targetcar2': targetcar2})
+  return jsonify({'data': data, 'targetcar': targetcar})
 
 @ app.route('/BAT', methods= ['GET', 'POST'])    
 def price_game():
@@ -108,7 +108,8 @@ def create_account():
 def spec_game():   
     from pyt_back import game_infrastructure
     data = json.dumps(game_infrastructure.info_dict)
-    targetcar2 = json.dumps(game_infrastructure.target_car2)
+    targetcar = json.dumps(game_infrastructure.target_car)
+    print( 'wooooooooo' + targetcar)
     first_name = session.get('first_name')
     if 'username' not in session:
       return redirect(url_for('login'))
@@ -121,7 +122,7 @@ def spec_game():
       profilepic = session.get('profilepic')
       print(profilepic)
       print(player_score)
-      return render_template("index.html", PageTitle = 'Name that Car!', data=data, targetcar2=targetcar2, correctscore=correctscore, totalscore=totalscore, player_score = player_score, profilepic=profilepic, first_name= first_name )
+      return render_template("index.html", PageTitle = 'Name that Car!', data=data, targetcar=targetcar, correctscore=correctscore, totalscore=totalscore, player_score = player_score, profilepic=profilepic, first_name= first_name )
 @app.route('/changescore', methods=['POST', 'GET'])
 def update_totalscore():
     if request.method == 'POST':
