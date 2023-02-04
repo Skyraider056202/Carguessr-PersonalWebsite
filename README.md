@@ -1,6 +1,5 @@
-# Carguessr-PersonalWebsite
+# Carguessr-PersonalWebsite Link at carguessr.pythonanywhere.com  
 
-Link at carguessr.pythonanywhere.com           
 Guesstheprice doesn't work (yet)
 
 My personal website is named Carguessr, which houses one fully functional (and one partially functional) minigame centered around scraping data off of the first table of a Wikipedia page and using it to guess the car model corresponding to that data. For instance, some common data points might include the designer of the car, the years of production, or any related/sister cars from a related company. Finally, the last piece of information included is an image of that exact car, scraped from a google images search. Due to the wide variety of Wikipedia car lists, with somewhat arbitrary groupings, it was challenging to find a list of car models without having to contend with another nested list within this list containing links to tangentially related topics. As such, I had to randomly choose from a list of seven Wikipedia car listings (such as List of sports cars), and then choose a car from there, while also avoiding hyperlinks that link to the manufacturer and not the model.
