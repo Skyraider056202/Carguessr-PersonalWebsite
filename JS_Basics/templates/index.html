@@ -61,10 +61,18 @@
         console.log(correct_score)
         document.getElementById('Correct_Leaderboard').innerHTML = 'Total Correct(On this Account):     ' + correct_score
         var car_data = ({{data|safe|tojson}})
-        var target_car = ({{targetcar2|safe|tojson}})
-        var target_car_mod = target_car.replace(/_/g, ' ')
-        var target_car_mod2 = target_car_mod.replace(/"/g, '')
-        console.log(target_car_mod2)// this ends up being the string that gets compared to user responses
+        var target_car = ({{targetcar|safe|tojson}})
+        var target_car2 = target_car.replace(/"/g, '')
+        var target_car2 = target_car2.replace(/u00e1 /g, 'á')
+        var target_car2 = target_car2.replace(/u00e9 /g, 'é')
+        var target_car2 = target_car2.replace(/u00ed/g, 'í')
+        var target_car2 = target_car2.replace(/u00f3/g, 'ó')
+        var target_car2 = target_car2.replace(/u00eb/g, 'ë')
+        var target_car2 = target_car2.replace(/\\/g, '')
+
+        
+        console.log(target_car2)
+       
         var parsed_car_data = JSON.parse(car_data);
         console.log(parsed_car_data)
         var car_dict_length = Object.keys(parsed_car_data).length
@@ -182,8 +190,7 @@ function game(){
             //fix points
   
 
-            if (submission_text == target_car_mod2){
-                x++
+            if (submission_text == target_car){
                 changecorrectscore()
                 retrievecorrectscore()
                 changescore()
@@ -215,8 +222,12 @@ function game(){
                     retrievescore()
                     var gameanswer = document.createElement('div')
                     gameanswer.className = 'gameanswer'
-                    gameanswer.innerHTML = '<br>The correct answer is : ' + target_car_mod2
-                    document.getElementById('Leaderboard').appendChild(gameanswer)
+                    console.log(target_car2)
+                    gameanswer.innerHTML = '<br>The correct answer is : ' + target_car2
+                    document.getElementById('titleheader').appendChild(gameanswer)
+                    document.getElementById('titleheader').style.backgroundImage = 'linear-gradient(to bottom right, red, lightblue)'
+                    document.getElementById('titleheader').style.borderRadius = '10px'
+                    
                     var restartbuttonsize = document.getElementById('rerun-button')
                     restartbuttonsize.style.scale = 1.5
                 return}
@@ -229,7 +240,7 @@ function game(){
 
 
 
-
+//create a separate div for correct answer if wrong
 
     button.addEventListener("click", () => {
   // Send a request to the Flask server to rerun the Python script
@@ -241,7 +252,7 @@ function game(){
   .then(response => response.json())
   .then(json => {
     var data = json.data;
-    var targetcar2 = json.targetcar2;
+    var target_car = json.target_car;
     location.reload()}, 5000);
 });
 
