@@ -109,7 +109,7 @@ def spec_game():
     from pyt_back import game_infrastructure
     data = json.dumps(game_infrastructure.info_dict)
     targetcar = json.dumps(game_infrastructure.target_car)
-    print( 'wooooooooo' + targetcar)
+    print(targetcar)
     first_name = session.get('first_name')
     if 'username' not in session:
       return redirect(url_for('login'))
