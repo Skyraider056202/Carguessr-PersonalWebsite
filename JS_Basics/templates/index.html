@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height = device-height initial-scale=1.0">
+    <title>Name that Car! </title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">  
+
+
+<!-- empty, filled in the CSS -->
+    <div class="backgroundimage"></div>
+    <div class="rulescontainer"> 
+        <div id="rulesheader">Rules</div>
+        <p class="rulesparagraph">In this game, you are presented with dynamically generated information sourced from wikipedia about a certain car. You must then attempt to guess it. Every incorrect answer reveals one more snippet of information, until you run out of information. If you run out, it's game over. (the answer is in the console if you are so inclined) Remember that not all pieces of information are equally useful...</p>
+    </div>
+   
+   
+   
+   
+   
+    <div class="welcomecontainer">
+            <h3 class="welcometext", id="titleheader"> Welcome to CarGuessr! (or NameThatCar!) </h3>
+            <h3 class="celica"><img class="celicaimg" src="/static/celica-removebg-preview.png"></h3>
+        </div>
+
+    <div>
+        <div class="Leaderboard", id = 'Correct_Leaderboard', style="height: '20%'; width: '20%">Total Correct(On this Account):  </div>
+        <div class="Leaderboard", id = 'Total_Leaderboard', style="height: '20%'; width: '20%">Number Attempted (On this Account): </div>
+    </div>
+<div id = 'rstrtbtn'></div>    
+    <div id = "startingbuttoncontainer"> 
+        <link rel="stylesheet" href="/static/Startbutton.css">
+        <button id = "start_button", class="startbutton" >Start Now!</button> 
+    </div>
+    
+    
+    <div id = 'infobox' class="data"> <!--this is where the car data will go-->
+    </div>
+    <div class="checkbuttonclass">
+    <input type="text", placeholder="What's your answer? ", value="" style="visibility: hidden", id = "userresponse">
+    
+        <button id = "checkanswer", style="visibility: hidden">Check my answer!</button>
+    </div>
+<div id="restartdiv">
+    <button id="rerun-button">Want to play again?</button>
+</div>
+           
+    <div id="image", style="background-color: pink;"></div>
+    <div class="statusbox", id = 'livecounter'>Lives Counter: </div>
+    <script text="javascript">
+        
+        var total_score;
+        var correct_score;
+        function deletebutton() {
+  var start_button = document.getElementById('start_button');
+  start_button.parentNode.removeChild(start_button);
+  game(correct_score, total_score)
+
+}
+  
+function retrievecorrectscore() {  //just gets the score from the db, both get requests
+  fetch('/changecorrectscore', {
+    method: "GET",
+    headers: {"Content-Type": "application/json"}
+  })
+  .then(response => response.json())
+  .then(data => {
+    correct_score = data.correct_score;
+    
+    var start_button = document.getElementById('start_button');
+    start_button.setAttribute('onclick', 'deletebutton()');
+  });
+  fetch('/changescore', {
+    method: "GET",
+    headers: {"Content-Type": "application/json"}
+    })
+    .then(response => response.json())
+    .then(data => {
+        total_score=data.new_score
+       
+    });
+}
+
+
+        var car_data = ({{data|safe|tojson}})
+        var target_car = ({{targetcar|safe|tojson}})
+        var target_car2 = target_car.replace(/"/g, '')
+        var target_car2 = target_car2.replace(/u00e1 /g, 'á')
+        var target_car2 = target_car2.replace(/u00e9 /g, 'é')
+        var target_car2 = target_car2.replace(/u00ed/g, 'í')
+        var target_car2 = target_car2.replace(/u00f3/g, 'ó')
+        var target_car2 = target_car2.replace(/u00eb/g, 'ë')
+        var target_car2 = target_car2.replace(/\\/g, '')
+    
+console.log('Why are you reading this? the answer is ' + target_car2)
+        
+        
+       
+        var parsed_car_data = JSON.parse(car_data);
+        console.log(parsed_car_data)
+        var car_dict_length = Object.keys(parsed_car_data).length
+        var car_dict_keys = Object.keys(parsed_car_data)
+        console.log(car_dict_length)
+        var check_button = document.getElementById('checkanswer')
+        var x = 0
+
+        function changebuttonoutline(){
+            check_button.style.borderColor = 'red'
+            check_button.innerHTML = 'Wrong! Try Again!'
+        }
+        function getdata(){
+            var carval = car_dict_keys[x] 
+            var element = parsed_car_data[carval]
+            var infobox = document.getElementById('infobox')
+            if (carval == 'image'){
+                var element = parsed_car_data[carval]
+                var src =  element +'.png'
+                var img = document.createElement('img')
+                img.src = src
+                img.className = 'images'
+                document.getElementById('infobox').appendChild(img)
+            }
+            else{
+            infobox.innerHTML += carval + " : " + element + "<br>"}
+        }
+        function submission_box(){ // makes submission box  visible
+            var submission = document.getElementById('userresponse')
+            submission.style.visibility = "visible"
+            var check = document.getElementById('checkanswer')
+            check.style.visibility = 'visible'}
+    
+            function makelives(){
+            for (const num of (Array(car_dict_length).keys())){
+                var lives = document.createElement('img')
+                lives.src = "/static/Charger.png"
+                lives.className = 'lives'
+                var livecounter = document.getElementById('livecounter')
+                livecounter.appendChild(lives)
+                lives.width = 80
+                lives.length = 50}}
+
+
+// this changes the total score, which I opted to keep separate from the correct score fetch functions so that they're less dependent on each other 
+
+ //changes the total score, tells python to add 1
+    function changescore(){
+    fetch("/changescore", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({'totalscore':total_score})})
+  .then(response => response.json())
+  .then(json => {
+    var total_score=json.new_score
+    console.log(total_score)
+  })}
+
+ 
+
+//this changes the correct score, tells python to add 1
+function changecorrectscore(){
+    fetch("/changecorrectscore", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({'correct_score':correct_score})})
+  .then(response => response.json())
+  .then(json => {
+    var correct_score=json.correct_score
+    console.log(correct_score)
+  })}
+
+
+
+
+
+function game(correct_score, total_score){ 
+  
+    document.getElementById('Total_Leaderboard').innerHTML = 'Number Attempted(On this Account):     ' + total_score
+       
+        
+        document.getElementById('Correct_Leaderboard').innerHTML = 'Total Correct(On this Account):     ' + correct_score
+        getdata() //gets first piece of data--if you get lucky, you could win with one tidbit, but that's unlikely
+        makelives()
+        submission_box() // makes the submission box appear-- it should never disappear
+        document.getElementById('checkanswer').onclick = function(){  
+            var submission_text = document.getElementById('userresponse').value.trim()
+            if (submission_text == ''){
+                document.getElementById('userresponse').placeholder = 'Write Something! One life lost!'
+            }
+            else{
+                document.getElementById('userresponse').placeholder = 'Incorrect. Try Again'
+            }
+            //fix points
+  
+
+            if (submission_text == target_car2){
+                changecorrectscore()
+                changescore()
+                total_score++
+                correct_score++
+                const livecounter = document.getElementsByClassName('lives')
+                fetch("/processdata", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ restart: true })
+                })
+                .then(response => response.json())
+                .then(json => {
+                    var data = json.data;
+                    var target_car = json.target_car;
+                    location.reload()}, 6000);
+                document.getElementById('userresponse').value = ''
+                var Leaderboard = document.getElementById('Total_Leaderboard')
+                Leaderboard.innerHTML = 'Total Attempted (On this Account): ' + total_score
+                var Correct_Leaderboard = document.getElementById('Correct_Leaderboard')
+                Correct_Leaderboard.innerHTML = 'Total Correct (On this Account)' + correct_score
+                document.getElementById('userresponse').placeholder = 'You win! Loading new car...'
+                
+                //create a box with directions to restart or if you want to go further.
+                while (x != car_dict_length){
+                const livecounter = document.getElementsByClassName('lives')
+                getdata()
+                livecounter[0].parentElement.removeChild(livecounter[0])
+                x++
+               
+            }
+                return} // ends the game
+            else{
+                const livecounter = document.getElementsByClassName('lives')
+                livecounter[0].parentElement.removeChild(livecounter[0])
+                x++ //adds 1 to x
+                if (x > (car_dict_length-1)){ 
+
+                    total_score++
+                    document.getElementById('Total_Leaderboard').innerHTML = 'Number Attempted(On this Account):     ' + total_score
+                    changescore() // add 1, leave correct alone
+    
+                    var gameanswer = document.createElement('div')
+                    gameanswer.className = 'gameanswer'
+                    console.log(target_car2)
+                    gameanswer.innerHTML = '<br>The correct answer is : ' + target_car2
+                    document.getElementById('titleheader').appendChild(gameanswer)
+                    document.getElementById('titleheader').style.backgroundImage = 'linear-gradient(to bottom right, red, lightblue)'
+                    document.getElementById('titleheader').style.borderRadius = '10px'
+                    var restartbuttonsize = document.getElementById('rerun-button')
+                    restartbuttonsize.style.scale = 1.5
+                    fetch("/processdata", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ restart: true })
+  })
+  .then(response => response.json())
+  .then(json => {
+    var data = json.data;
+    var target_car = json.target_car;
+    location.reload()}, 5000);
+                return}
+                else{
+                    changebuttonoutline()
+                getdata()}}}}
+    
+    const button = document.querySelector("#rerun-button");
+
+
+
+//create a separate div for correct answer if wrong
+
+    button.addEventListener("click", () => {
+  // Send a request to the Flask server to rerun the Python script
+  fetch("/processdata", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ restart: true })
+  })
+  .then(response => response.json())
+  .then(json => {
+    var data = json.data;
+    var target_car = json.target_car;
+    location.reload()}, 5000);
+});
+
+
+
+
+  
+retrievecorrectscore(correct_score, total_score)
+
+    </script>
+<link rel="stylesheet" href="/static/styles.css"> 
+</body>
+</html>

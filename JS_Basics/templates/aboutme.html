@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">  
+    <div id="heading">
+    <h2>These projects (and by extension, the whole site) exist because I wanted to apply my self-learned Flask skills to build a passion project. (SOURCE CODE ON GITHUB: Skyraider056202) </h2>
+    </div>
+    <div id="info1">My first main project is Carguessr, which uses Wikipedia data scraped using BeautifulSoup, along with images scraped from Google, to play a game similar to Geoguessr, where you guess the car based on the data. In order to 
+        choose the car, the program first looks through the KellyBlueBook directory of car models, and picks one at random. If the model has a decently descriptive Wikipedia page, it scrapes the data, otherwise it re-runs the script. This is to avoid
+        specific trim levels (such as the Camry LE or SE as opposed to the Camry) being erroneously chosen by the script, but this comes at the cost of extra time sourcing data. Scores are then tracked using a SQLAlchemy database with Bcrypt encryption for passwords
+        and WTForms coupled with normal HTML5 forms are used to field user input. Fetch and async functions are used to handle interactions between the SQLAlchemy database and the webpage, and secret keys and form validation is used for security.
+
+    </div>
+    <div id="info2">Another small Flask App that I am working on is similar to Carguessr, but uses a more complex/advanced webscraping module--called Selenium--to scrape data about private car sales from popular car auction site BringATrailer.
+        The main aim of the game would be to guess the price range, with extra points granted for getting closer to the actual price. I found this idea particularly appealing since car prices have skyrocketed since the pandemic, 
+        and many older cars (in good condition) have been known to sell for more than double MSRP because of the nostalgia they hold. Right now, the 
+        script randomly chooses one letter of the alphabet, then chooses one car brand corresponding with that letter, then chooses a random model and then one listing. Each of those rely on scraping specific tags unique to BAT, forcing me to use Selenium
+        to simulate a loaded webpage. Data scraped include {name, bidding price, multiple pictures of the car, seller, brief description of the car}        
+        The script has already been created, and the data (pictures, sales data etc) can be scraped, but the webpage has yet to be fully designed.
+    </div>
+    <div id="info3">In the future, I plan to expand this website by including future projects, such as... 
+        <li>A project that utilizes the OpenFDA database to source biomedical data.</li>
+        <li>Creating a profile page or allowing users to upload actual profile pictures as opposed to pre-selecting one with file type verification</li>
+        <li>Rewriting the backend of each game to utilize common APIs (Like the Wikipedia API or the Ebay/Bring A Trailer API)</li>
+        <li>Creating a password reset/Flask mail/contact page to gain experience with making two different services interact with each other</li>
+        <li>Learning more CSS and using it to rewrite the website to be more animated</li>
+        <li>Learning Git and exploring Github in greater detail so that I could work more efficiently in a team</li>
+    </div>
+    <link rel="stylesheet" href="/static/aboutstyle.css">
+</body>
+</html>

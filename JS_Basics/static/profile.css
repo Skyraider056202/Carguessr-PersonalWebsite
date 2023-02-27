@@ -1,0 +1,38 @@
+body{
+    background-image: url('ferrari4.jpg');
+    background-repeat:  no-repeat;
+    background-size:cover
+}
+#personalinfo {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    max-width: fit-content;
+    border-radius: 2rem;
+    background-color: beige;
+    
+padding: 2em  
+}
+@import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
+#welcome{
+    border-radius: 1em;
+    padding: .5em;
+    background-image: linear-gradient(rgb(190, 6, 6), gray);
+    font-family: 'Mynerve', cursive;
+    position: absolute;
+    left: 50%;
+   
+    transform: translate(-50%, 0% );
+}
+  @import url('https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap');
+  .datapoint{
+    margin: 1em;
+    font-size: x-large;
+    font-family: 'Shantell Sans', cursive;
+    border-width: 2em;
+    background-color: white;
+    border-radius: 2em;
+    padding: 5px;
+  }
